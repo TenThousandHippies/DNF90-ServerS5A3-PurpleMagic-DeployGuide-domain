@@ -1,4 +1,4 @@
-详细部署步骤见[查看指南](DEPLOY_GUIDE.md)
+详细部署步骤请查看部署指南[DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)
 
 # 一、指南核心内容速览
 
