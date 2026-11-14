@@ -1,4 +1,4 @@
-# DNF90（ServerS5A3 + PurpleMagic）部署指南
+﻿# DNF90（ServerS5A3 + PurpleMagic）部署指南
 
 > 适用版本：ServerS5A3 `master`（本文验证于 `44e3482`，2026-11-14）、PurpleMagic `main`（验证于 `216d5888`）。
 > 本文所有路径、命令都在 192.168.200.130 这台 Ubuntu 24.04 虚拟机上实际执行过；换机器时只需替换 IP/域名/路径。

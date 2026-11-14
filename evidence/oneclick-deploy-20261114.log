@@ -1,0 +1,2078 @@
+
+== 日志：/srv/dnf/logs/deploy-20261114-205758.log ==
+
+== 1/10 基础工具与 Docker ==
+
+== 2/10 获取源码 ==
+44e34822b5c57fe528a6a53c0dc26bc51de17d3e
+
+== 3/10 构建补丁 ==
+manage.py patched
+PurpleMagic Dockerfile patched
+
+== 4/10 构建服务端镜像（首次 5-15 分钟） ==
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 901B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/golang:1.26.5-alpine@sha256:0178a641fbb4858c5f1b48e34bdaabe0350a330a1b1149aabd498d0699ff5fb2
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/alpine@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
+#3 DONE 0.6s
+
+#2 [internal] load metadata for docker.io/library/golang:1.26.5-alpine@sha256:0178a641fbb4858c5f1b48e34bdaabe0350a330a1b1149aabd498d0699ff5fb2
+#2 DONE 6.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 160B done
+#4 DONE 0.0s
+
+#5 [stage-1 1/4] FROM docker.io/library/alpine@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
+#5 resolve docker.io/library/alpine@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 0.0s done
+#5 DONE 0.0s
+
+#6 [build 1/6] FROM docker.io/library/golang:1.26.5-alpine@sha256:0178a641fbb4858c5f1b48e34bdaabe0350a330a1b1149aabd498d0699ff5fb2
+#6 resolve docker.io/library/golang:1.26.5-alpine@sha256:0178a641fbb4858c5f1b48e34bdaabe0350a330a1b1149aabd498d0699ff5fb2 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 594.13kB 0.5s done
+#7 DONE 0.6s
+
+#8 [build 6/6] RUN --mount=type=cache,target=/go/pkg/mod --mount=type=cache,target=/root/.cache/go-build     CGO_ENABLED=0 go build -tags timetzdata -buildvcs=false -mod=readonly -trimpath -o /out/DNF90Server ./cmd/server/dnf90 &&     CGO_ENABLED=0 go build -buildvcs=false -mod=readonly -trimpath -o /out/DNF90Assets ./cmd/server/assets
+#8 CACHED
+
+#9 [build 5/6] COPY go-server/ ./
+#9 CACHED
+
+#10 [stage-1 3/4] COPY --from=build /out/ /usr/local/bin/
+#10 CACHED
+
+#11 [build 2/6] WORKDIR /src
+#11 CACHED
+
+#12 [build 4/6] RUN --mount=type=cache,target=/go/pkg/mod go mod download
+#12 CACHED
+
+#13 [stage-1 2/4] RUN addgroup -g 10001 dnf && adduser -D -u 10001 -G dnf dnf
+#13 CACHED
+
+#14 [build 3/6] COPY go-server/go.mod go-server/go.sum ./
+#14 CACHED
+
+#15 [stage-1 4/4] WORKDIR /runtime
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:f85952eebcbe0fa43f87dfc815f5e195001c2f950f5f007a3b90d192189e4a97 done
+#16 exporting config sha256:f58d64a4077ec2b69c8c38634a128125ea818476ce0746e841520df917fbff0d done
+#16 exporting attestation manifest sha256:aa1ba6c94a90f87243598a61a268df94d9fd13fc4f91d3a6d958824ef41bb40c 0.0s done
+#16 exporting manifest list sha256:d6369ceb79c166c05f1f5d5cf4542a5535e925269f349f71186d660cbdea0347 done
+#16 naming to docker.io/library/servers5a3-local:dev done
+#16 unpacking to docker.io/library/servers5a3-local:dev done
+#16 DONE 0.1s
+
+== 5/10 生成运行配置（显式外部频道表） ==
+Prepared 120 real channels; configuration: /srv/dnf/ServerS5A3/runtime/docker/instance.json
+
+== 5b/10 写入部署策略（赛马关闭 / 大会 vendor / 区服 1 / 开机自启） ==
+{'joust_event_enabled': False, 'dungeon_tournament': 'vendor', 'channel_advertise_server': 1, 'public_bootstrap': True, 'restart': 'unless-stopped'}
+
+== 5c/10 启动游戏服务 ==
+ Image mariadb:11.8@sha256:be1ef4fe5f14589325c08a41c76334097ce66c86264b75e1d28342c742782a61 Pulling 
+ 10ea82415a1f Pulling fs layer 0B
+ cb259a83ac3d Pulling fs layer 0B
+ 63d704c19e58 Pulling fs layer 0B
+ 8c775f7a89f7 Pulling fs layer 0B
+ 35e7e6431c52 Pulling fs layer 0B
+ 40317951f805 Pulling fs layer 0B
+ ca2187997b6a Pulling fs layer 0B
+ 0fa2a7c8b008 Pulling fs layer 0B
+ 891c5c7fb3c5 Download complete 0B
+ 10ea82415a1f Download complete 0B
+ a4e88a4559da Downloading 1.049MB
+ a4e88a4559da Downloading 1.049MB
+ a4e88a4559da Downloading 1.049MB
+ a4e88a4559da Downloading 1.049MB
+ a4e88a4559da Downloading 1.049MB
+ a4e88a4559da Downloading 2.097MB
+ a4e88a4559da Downloading 2.097MB
+ a4e88a4559da Downloading 2.097MB
+ a4e88a4559da Downloading 2.097MB
+ a4e88a4559da Downloading 3.146MB
+ 35e7e6431c52 Download complete 0B
+ a4e88a4559da Downloading 3.146MB
+ a4e88a4559da Downloading 4.207MB
+ a4e88a4559da Download complete 0B
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ 63d704c19e58 Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ 63d704c19e58 Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ 63d704c19e58 Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 1.049MB
+ 63d704c19e58 Downloading 1.049MB
+ cb259a83ac3d Downloading 1.753MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 1.049MB
+ cb259a83ac3d Downloading 2.097MB
+ ca2187997b6a Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 1.049MB
+ ca2187997b6a Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ ca2187997b6a Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ ca2187997b6a Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ ca2187997b6a Downloading 2.097MB
+ ca2187997b6a Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ ca2187997b6a Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ ca2187997b6a Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ ca2187997b6a Downloading 2.097MB
+ cb259a83ac3d Downloading 2.097MB
+ 63d704c19e58 Downloading 2.097MB
+ ca2187997b6a Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 2.097MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 2.097MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ ca2187997b6a Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 3.146MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 4.194MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 3.146MB
+ 63d704c19e58 Downloading 3.146MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 3.146MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ ca2187997b6a Downloading 4.194MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ ca2187997b6a Downloading 4.194MB
+ ca2187997b6a Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ ca2187997b6a Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ ca2187997b6a Downloading 5.243MB
+ cb259a83ac3d Downloading 4.194MB
+ ca2187997b6a Downloading 5.243MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ ca2187997b6a Downloading 5.243MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 4.194MB
+ ca2187997b6a Downloading 5.243MB
+ ca2187997b6a Downloading 5.243MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Downloading 5.243MB
+ cb259a83ac3d Downloading 4.194MB
+ 63d704c19e58 Download complete 0B
+ ca2187997b6a Downloading 5.243MB
+ cb259a83ac3d Downloading 4.194MB
+ ca2187997b6a Downloading 5.243MB
+ ca2187997b6a Downloading 5.243MB
+ cb259a83ac3d Downloading 4.194MB
+ cb259a83ac3d Downloading 4.194MB
+ ca2187997b6a Downloading 5.243MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 5.243MB
+ ca2187997b6a Downloading 6.291MB
+ cb259a83ac3d Downloading 5.243MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 6.291MB
+ ca2187997b6a Downloading 6.291MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 6.291MB
+ cb259a83ac3d Downloading 5.243MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 6.291MB
+ ca2187997b6a Downloading 6.291MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 6.291MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 6.291MB
+ cb259a83ac3d Downloading 5.243MB
+ 8c775f7a89f7 Download complete 0B
+ ca2187997b6a Downloading 6.291MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 7.34MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 7.34MB
+ cb259a83ac3d Downloading 5.243MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 7.34MB
+ ca2187997b6a Downloading 7.34MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 7.34MB
+ cb259a83ac3d Downloading 5.243MB
+ cb259a83ac3d Downloading 5.243MB
+ ca2187997b6a Downloading 7.34MB
+ ca2187997b6a Downloading 7.34MB
+ cb259a83ac3d Downloading 5.243MB
+ 40317951f805 Download complete 0B
+ ca2187997b6a Downloading 7.34MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ cb259a83ac3d Downloading 6.291MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ ca2187997b6a Downloading 8.389MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ cb259a83ac3d Downloading 6.291MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ ca2187997b6a Downloading 8.389MB
+ cb259a83ac3d Downloading 6.291MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ ca2187997b6a Downloading 8.389MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ cb259a83ac3d Downloading 6.291MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 8.389MB
+ ca2187997b6a Downloading 9.437MB
+ 0fa2a7c8b008 Download complete 0B
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 9.437MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 9.437MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 9.437MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 9.437MB
+ cb259a83ac3d Downloading 6.291MB
+ cb259a83ac3d Downloading 6.291MB
+ ca2187997b6a Downloading 9.437MB
+ cb259a83ac3d Downloading 7.34MB
+ ca2187997b6a Downloading 9.437MB
+ ca2187997b6a Downloading 9.437MB
+ cb259a83ac3d Downloading 7.34MB
+ cb259a83ac3d Downloading 7.34MB
+ ca2187997b6a Downloading 9.437MB
+ cb259a83ac3d Downloading 7.34MB
+ ca2187997b6a Downloading 10.49MB
+ ca2187997b6a Downloading 10.49MB
+ cb259a83ac3d Downloading 7.34MB
+ ca2187997b6a Downloading 10.49MB
+ cb259a83ac3d Downloading 7.34MB
+ cb259a83ac3d Downloading 7.34MB
+ ca2187997b6a Downloading 10.49MB
+ ca2187997b6a Downloading 10.49MB
+ cb259a83ac3d Downloading 7.34MB
+ ca2187997b6a Downloading 10.49MB
+ cb259a83ac3d Downloading 7.34MB
+ cb259a83ac3d Downloading 7.34MB
+ ca2187997b6a Downloading 10.49MB
+ ca2187997b6a Downloading 11.53MB
+ cb259a83ac3d Downloading 7.34MB
+ ca2187997b6a Downloading 11.53MB
+ cb259a83ac3d Downloading 8.389MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 11.53MB
+ ca2187997b6a Downloading 11.53MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 11.53MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 11.53MB
+ cb259a83ac3d Downloading 8.389MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 11.53MB
+ ca2187997b6a Downloading 11.53MB
+ cb259a83ac3d Downloading 8.389MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 12.58MB
+ ca2187997b6a Downloading 12.58MB
+ cb259a83ac3d Downloading 8.389MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 12.58MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 12.58MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 12.58MB
+ ca2187997b6a Downloading 12.58MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 12.58MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 12.58MB
+ cb259a83ac3d Downloading 8.389MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 12.58MB
+ ca2187997b6a Downloading 13.63MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 13.63MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 13.63MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 13.63MB
+ cb259a83ac3d Downloading 8.389MB
+ cb259a83ac3d Downloading 8.389MB
+ ca2187997b6a Downloading 13.63MB
+ ca2187997b6a Downloading 13.63MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 13.63MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 13.63MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 13.63MB
+ cb259a83ac3d Downloading 9.437MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 14.68MB
+ ca2187997b6a Downloading 14.68MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 14.68MB
+ cb259a83ac3d Downloading 9.437MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 14.68MB
+ ca2187997b6a Downloading 14.68MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 14.68MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 14.68MB
+ cb259a83ac3d Downloading 9.437MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 14.68MB
+ ca2187997b6a Downloading 14.68MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 14.68MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 14.68MB
+ cb259a83ac3d Downloading 9.437MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 15.73MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 15.73MB
+ cb259a83ac3d Downloading 9.437MB
+ ca2187997b6a Downloading 15.73MB
+ ca2187997b6a Downloading 15.73MB
+ cb259a83ac3d Downloading 10.49MB
+ cb259a83ac3d Downloading 10.49MB
+ ca2187997b6a Downloading 15.73MB
+ ca2187997b6a Downloading 15.73MB
+ cb259a83ac3d Downloading 10.49MB
+ ca2187997b6a Downloading 16.78MB
+ cb259a83ac3d Downloading 10.49MB
+ ca2187997b6a Downloading 16.78MB
+ cb259a83ac3d Downloading 10.49MB
+ ca2187997b6a Downloading 16.78MB
+ cb259a83ac3d Downloading 10.49MB
+ ca2187997b6a Downloading 16.78MB
+ cb259a83ac3d Downloading 10.49MB
+ cb259a83ac3d Downloading 10.49MB
+ ca2187997b6a Downloading 16.78MB
+ cb259a83ac3d Downloading 10.49MB
+ ca2187997b6a Downloading 16.78MB
+ cb259a83ac3d Downloading 10.49MB
+ ca2187997b6a Downloading 16.78MB
+ ca2187997b6a Downloading 16.78MB
+ cb259a83ac3d Downloading 11.53MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 17.83MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 17.83MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 17.83MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 17.83MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 17.83MB
+ ca2187997b6a Downloading 18.87MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 18.87MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 18.87MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 18.87MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 18.87MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 18.87MB
+ cb259a83ac3d Downloading 11.53MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 18.87MB
+ cb259a83ac3d Downloading 11.53MB
+ ca2187997b6a Downloading 18.87MB
+ ca2187997b6a Downloading 18.87MB
+ cb259a83ac3d Downloading 11.53MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 18.87MB
+ ca2187997b6a Downloading 19.92MB
+ cb259a83ac3d Downloading 12.58MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 19.92MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 19.92MB
+ ca2187997b6a Downloading 19.92MB
+ cb259a83ac3d Downloading 12.58MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 19.92MB
+ ca2187997b6a Downloading 19.92MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 19.92MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 20.97MB
+ cb259a83ac3d Downloading 12.58MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 20.97MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 20.97MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 20.97MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 20.97MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 20.97MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 20.97MB
+ ca2187997b6a Downloading 20.97MB
+ cb259a83ac3d Downloading 12.58MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 22.02MB
+ ca2187997b6a Downloading 22.02MB
+ cb259a83ac3d Downloading 12.58MB
+ cb259a83ac3d Downloading 12.58MB
+ ca2187997b6a Downloading 23.07MB
+ ca2187997b6a Downloading 23.07MB
+ cb259a83ac3d Downloading 12.58MB
+ cb259a83ac3d Downloading 13.63MB
+ ca2187997b6a Downloading 23.07MB
+ ca2187997b6a Downloading 23.07MB
+ cb259a83ac3d Downloading 13.63MB
+ cb259a83ac3d Downloading 13.63MB
+ ca2187997b6a Downloading 23.07MB
+ ca2187997b6a Downloading 23.07MB
+ cb259a83ac3d Downloading 13.63MB
+ cb259a83ac3d Downloading 13.63MB
+ ca2187997b6a Downloading 23.07MB
+ cb259a83ac3d Downloading 13.63MB
+ ca2187997b6a Downloading 23.07MB
+ cb259a83ac3d Downloading 13.63MB
+ ca2187997b6a Downloading 23.07MB
+ ca2187997b6a Downloading 23.07MB
+ cb259a83ac3d Downloading 13.63MB
+ cb259a83ac3d Downloading 13.63MB
+ ca2187997b6a Downloading 24.12MB
+ cb259a83ac3d Downloading 13.63MB
+ ca2187997b6a Downloading 25.17MB
+ ca2187997b6a Downloading 25.17MB
+ cb259a83ac3d Downloading 13.63MB
+ ca2187997b6a Downloading 25.17MB
+ cb259a83ac3d Downloading 14.68MB
+ ca2187997b6a Downloading 25.17MB
+ cb259a83ac3d Downloading 14.68MB
+ ca2187997b6a Downloading 25.17MB
+ cb259a83ac3d Downloading 14.68MB
+ ca2187997b6a Downloading 25.17MB
+ cb259a83ac3d Downloading 14.68MB
+ cb259a83ac3d Downloading 14.68MB
+ ca2187997b6a Downloading 25.17MB
+ cb259a83ac3d Downloading 14.68MB
+ ca2187997b6a Downloading 25.17MB
+ cb259a83ac3d Downloading 14.68MB
+ ca2187997b6a Downloading 26.21MB
+ ca2187997b6a Downloading 26.21MB
+ cb259a83ac3d Downloading 15.73MB
+ cb259a83ac3d Downloading 15.73MB
+ ca2187997b6a Downloading 26.21MB
+ ca2187997b6a Downloading 26.21MB
+ cb259a83ac3d Downloading 15.73MB
+ cb259a83ac3d Downloading 15.73MB
+ ca2187997b6a Downloading 26.21MB
+ cb259a83ac3d Downloading 15.73MB
+ ca2187997b6a Downloading 26.21MB
+ ca2187997b6a Downloading 27.26MB
+ cb259a83ac3d Downloading 15.73MB
+ cb259a83ac3d Downloading 15.73MB
+ ca2187997b6a Downloading 27.26MB
+ cb259a83ac3d Downloading 15.73MB
+ ca2187997b6a Downloading 27.26MB
+ ca2187997b6a Downloading 28.31MB
+ cb259a83ac3d Downloading 15.73MB
+ ca2187997b6a Downloading 28.31MB
+ cb259a83ac3d Downloading 15.73MB
+ ca2187997b6a Downloading 28.31MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 28.31MB
+ cb259a83ac3d Downloading 16.78MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 28.31MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 28.31MB
+ ca2187997b6a Downloading 28.31MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 28.31MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 28.31MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 30.41MB
+ cb259a83ac3d Downloading 16.78MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 30.41MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 30.41MB
+ cb259a83ac3d Downloading 16.78MB
+ ca2187997b6a Downloading 30.41MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 30.41MB
+ ca2187997b6a Downloading 30.41MB
+ cb259a83ac3d Downloading 17.83MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 30.41MB
+ ca2187997b6a Downloading 30.41MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 30.41MB
+ cb259a83ac3d Downloading 17.83MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 30.41MB
+ ca2187997b6a Downloading 30.41MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 31.46MB
+ cb259a83ac3d Downloading 17.83MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 31.46MB
+ ca2187997b6a Downloading 31.46MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 31.46MB
+ cb259a83ac3d Downloading 17.83MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 31.46MB
+ ca2187997b6a Downloading 31.46MB
+ cb259a83ac3d Downloading 17.83MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 31.46MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 32.51MB
+ cb259a83ac3d Downloading 17.83MB
+ ca2187997b6a Downloading 32.51MB
+ ca2187997b6a Downloading 32.51MB
+ cb259a83ac3d Downloading 17.83MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 32.51MB
+ ca2187997b6a Downloading 32.51MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 33.55MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 33.55MB
+ cb259a83ac3d Downloading 18.87MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 33.55MB
+ ca2187997b6a Downloading 33.55MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 33.55MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 33.55MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 33.55MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 34.6MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 34.6MB
+ cb259a83ac3d Downloading 18.87MB
+ cb259a83ac3d Downloading 18.87MB
+ ca2187997b6a Downloading 34.6MB
+ cb259a83ac3d Downloading 19.92MB
+ ca2187997b6a Downloading 34.6MB
+ ca2187997b6a Downloading 34.6MB
+ cb259a83ac3d Downloading 19.92MB
+ cb259a83ac3d Downloading 19.92MB
+ ca2187997b6a Downloading 34.6MB
+ cb259a83ac3d Downloading 19.92MB
+ ca2187997b6a Downloading 36.7MB
+ cb259a83ac3d Downloading 19.92MB
+ ca2187997b6a Downloading 36.7MB
+ cb259a83ac3d Downloading 19.92MB
+ ca2187997b6a Downloading 37.75MB
+ cb259a83ac3d Downloading 20.97MB
+ ca2187997b6a Downloading 37.75MB
+ cb259a83ac3d Downloading 20.97MB
+ ca2187997b6a Downloading 37.75MB
+ ca2187997b6a Downloading 37.75MB
+ cb259a83ac3d Downloading 20.97MB
+ cb259a83ac3d Downloading 20.97MB
+ ca2187997b6a Downloading 37.75MB
+ ca2187997b6a Downloading 37.75MB
+ cb259a83ac3d Downloading 20.97MB
+ cb259a83ac3d Downloading 20.97MB
+ ca2187997b6a Downloading 37.75MB
+ cb259a83ac3d Downloading 20.97MB
+ ca2187997b6a Downloading 37.75MB
+ ca2187997b6a Downloading 38.8MB
+ cb259a83ac3d Downloading 20.97MB
+ cb259a83ac3d Downloading 20.97MB
+ ca2187997b6a Downloading 38.8MB
+ cb259a83ac3d Downloading 20.97MB
+ ca2187997b6a Downloading 39.85MB
+ ca2187997b6a Downloading 39.85MB
+ cb259a83ac3d Downloading 22.02MB
+ ca2187997b6a Downloading 39.85MB
+ cb259a83ac3d Downloading 22.02MB
+ ca2187997b6a Downloading 40.89MB
+ cb259a83ac3d Downloading 22.02MB
+ ca2187997b6a Downloading 40.89MB
+ cb259a83ac3d Downloading 22.02MB
+ ca2187997b6a Downloading 40.89MB
+ cb259a83ac3d Downloading 22.02MB
+ ca2187997b6a Downloading 40.89MB
+ cb259a83ac3d Downloading 22.02MB
+ ca2187997b6a Downloading 40.89MB
+ cb259a83ac3d Downloading 22.02MB
+ cb259a83ac3d Downloading 22.02MB
+ ca2187997b6a Downloading 40.89MB
+ ca2187997b6a Downloading 40.89MB
+ cb259a83ac3d Downloading 22.02MB
+ ca2187997b6a Downloading 41.94MB
+ cb259a83ac3d Downloading 23.07MB
+ cb259a83ac3d Downloading 23.07MB
+ ca2187997b6a Downloading 41.94MB
+ cb259a83ac3d Downloading 23.07MB
+ ca2187997b6a Downloading 41.94MB
+ ca2187997b6a Downloading 42.99MB
+ cb259a83ac3d Downloading 23.07MB
+ ca2187997b6a Downloading 42.99MB
+ cb259a83ac3d Downloading 23.07MB
+ cb259a83ac3d Downloading 23.07MB
+ ca2187997b6a Downloading 42.99MB
+ cb259a83ac3d Downloading 23.07MB
+ ca2187997b6a Downloading 42.99MB
+ ca2187997b6a Downloading 44.04MB
+ cb259a83ac3d Downloading 23.07MB
+ cb259a83ac3d Downloading 23.07MB
+ ca2187997b6a Downloading 44.04MB
+ cb259a83ac3d Downloading 23.07MB
+ ca2187997b6a Downloading 45.09MB
+ cb259a83ac3d Downloading 24.12MB
+ ca2187997b6a Downloading 45.09MB
+ cb259a83ac3d Downloading 24.12MB
+ ca2187997b6a Downloading 45.09MB
+ cb259a83ac3d Downloading 24.12MB
+ ca2187997b6a Downloading 45.09MB
+ ca2187997b6a Downloading 45.09MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 45.09MB
+ cb259a83ac3d Downloading 25.17MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 45.09MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 46.14MB
+ ca2187997b6a Downloading 46.14MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 46.14MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 46.14MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 47.19MB
+ cb259a83ac3d Downloading 25.17MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 47.19MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 47.19MB
+ ca2187997b6a Downloading 47.19MB
+ cb259a83ac3d Downloading 25.17MB
+ ca2187997b6a Downloading 47.19MB
+ cb259a83ac3d Downloading 25.17MB
+ cb259a83ac3d Downloading 26.21MB
+ ca2187997b6a Downloading 47.19MB
+ cb259a83ac3d Downloading 26.21MB
+ ca2187997b6a Downloading 47.19MB
+ cb259a83ac3d Downloading 26.21MB
+ ca2187997b6a Downloading 49.28MB
+ cb259a83ac3d Downloading 26.21MB
+ ca2187997b6a Downloading 49.28MB
+ ca2187997b6a Downloading 50.33MB
+ cb259a83ac3d Downloading 26.21MB
+ ca2187997b6a Downloading 50.33MB
+ cb259a83ac3d Downloading 27.26MB
+ ca2187997b6a Downloading 50.33MB
+ cb259a83ac3d Downloading 27.26MB
+ ca2187997b6a Downloading 50.33MB
+ cb259a83ac3d Downloading 27.26MB
+ cb259a83ac3d Downloading 27.26MB
+ ca2187997b6a Downloading 50.33MB
+ cb259a83ac3d Downloading 27.26MB
+ ca2187997b6a Downloading 50.33MB
+ ca2187997b6a Downloading 50.33MB
+ cb259a83ac3d Downloading 27.26MB
+ cb259a83ac3d Downloading 27.26MB
+ ca2187997b6a Downloading 50.33MB
+ ca2187997b6a Downloading 50.33MB
+ cb259a83ac3d Downloading 27.26MB
+ ca2187997b6a Downloading 51.38MB
+ cb259a83ac3d Downloading 27.26MB
+ cb259a83ac3d Downloading 27.26MB
+ ca2187997b6a Downloading 51.38MB
+ ca2187997b6a Downloading 51.38MB
+ cb259a83ac3d Downloading 28.31MB
+ cb259a83ac3d Downloading 28.31MB
+ ca2187997b6a Downloading 51.38MB
+ ca2187997b6a Downloading 51.38MB
+ cb259a83ac3d Downloading 28.31MB
+ ca2187997b6a Downloading 51.38MB
+ cb259a83ac3d Downloading 28.31MB
+ cb259a83ac3d Downloading 28.31MB
+ ca2187997b6a Downloading 53.48MB
+ ca2187997b6a Downloading 53.48MB
+ cb259a83ac3d Downloading 28.31MB
+ cb259a83ac3d Downloading 28.31MB
+ ca2187997b6a Downloading 54.53MB
+ ca2187997b6a Downloading 54.53MB
+ cb259a83ac3d Downloading 28.31MB
+ ca2187997b6a Downloading 54.53MB
+ cb259a83ac3d Downloading 29.36MB
+ ca2187997b6a Downloading 54.53MB
+ cb259a83ac3d Download complete 0B
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 54.53MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 54.53MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 54.53MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 54.53MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 55.57MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 55.57MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 57.25MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 57.67MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 57.67MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 57.67MB
+ cb259a83ac3d Extracting 1B
+ ca2187997b6a Downloading 57.67MB
+ cb259a83ac3d Extracting 2B
+ ca2187997b6a Downloading 57.67MB
+ cb259a83ac3d Extracting 2B
+ ca2187997b6a Downloading 58.72MB
+ cb259a83ac3d Extracting 2B
+ ca2187997b6a Downloading 58.72MB
+ cb259a83ac3d Extracting 2B
+ ca2187997b6a Downloading 58.72MB
+ cb259a83ac3d Extracting 2B
+ ca2187997b6a Downloading 58.72MB
+ 35e7e6431c52 Pull complete 0B
+ 63d704c19e58 Extracting 1B
+ cb259a83ac3d Pull complete 0B
+ ca2187997b6a Downloading 59.77MB
+ 63d704c19e58 Extracting 1B
+ ca2187997b6a Downloading 60.82MB
+ 63d704c19e58 Extracting 1B
+ ca2187997b6a Downloading 60.82MB
+ 63d704c19e58 Extracting 1B
+ ca2187997b6a Downloading 60.82MB
+ 63d704c19e58 Extracting 1B
+ ca2187997b6a Downloading 60.82MB
+ 63d704c19e58 Pull complete 0B
+ 8c775f7a89f7 Pull complete 0B
+ 40317951f805 Pull complete 0B
+ ca2187997b6a Downloading 60.82MB
+ ca2187997b6a Downloading 60.82MB
+ ca2187997b6a Downloading 61.87MB
+ ca2187997b6a Downloading 61.87MB
+ ca2187997b6a Downloading 61.87MB
+ ca2187997b6a Downloading 61.87MB
+ ca2187997b6a Downloading 61.87MB
+ ca2187997b6a Downloading 61.87MB
+ ca2187997b6a Downloading 61.87MB
+ ca2187997b6a Downloading 63.96MB
+ ca2187997b6a Downloading 65.01MB
+ ca2187997b6a Downloading 65.01MB
+ ca2187997b6a Downloading 65.19MB
+ ca2187997b6a Downloading 66.06MB
+ ca2187997b6a Downloading 66.06MB
+ ca2187997b6a Downloading 66.06MB
+ ca2187997b6a Downloading 66.06MB
+ ca2187997b6a Downloading 66.06MB
+ ca2187997b6a Downloading 66.06MB
+ ca2187997b6a Downloading 66.06MB
+ ca2187997b6a Downloading 66.06MB
+ ca2187997b6a Downloading 67.11MB
+ ca2187997b6a Downloading 68.16MB
+ ca2187997b6a Download complete 0B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 1B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 2B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ ca2187997b6a Extracting 3B
+ 10ea82415a1f Pull complete 0B
+ 0fa2a7c8b008 Pull complete 0B
+ ca2187997b6a Pull complete 0B
+ Image mariadb:11.8@sha256:be1ef4fe5f14589325c08a41c76334097ce66c86264b75e1d28342c742782a61 Pulled 
+ Network servers5a3-local_private Creating 
+ Volume servers5a3-local_database Creating 
+ Volume servers5a3-local_database Created 
+ Network servers5a3-local_private Created 
+ Container servers5a3-local-db-1 Creating 
+ Container servers5a3-local-db-1 Created 
+ Container servers5a3-local-server-1 Creating 
+ Container servers5a3-local-server-1 Created 
+ Container servers5a3-local-db-1 Starting 
+ Container servers5a3-local-db-1 Started 
+ Container servers5a3-local-db-1 Waiting 
+ Container servers5a3-local-db-1 Healthy 
+ Container servers5a3-local-server-1 Starting 
+ Container servers5a3-local-server-1 Started 
+ Container servers5a3-local-db-1 Waiting 
+ Container servers5a3-local-server-1 Waiting 
+ Container servers5a3-local-db-1 Healthy 
+ Container servers5a3-local-server-1 Healthy 
+Prepared 120 real channels; configuration: /srv/dnf/ServerS5A3/runtime/docker/instance.json
+{"ok":true,"message":"dnf90 account api ready"}
+
+== 6/10 生成 PurpleMagic 输入 ==
+Player profile prepared from the approved client and public trust material.
+settings written
+
+== 7/10 构建 PurpleMagic 镜像 ==
+Private configuration prepared. The GM login key is in admin-token.txt. No service was started.
+ Image purplemagic:local Building 
+ Image purplemagic:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 934B done
+#1 DONE 0.0s
+
+#2 [gm internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.32kB done
+#2 DONE 0.0s
+
+#3 [gateway internal] load metadata for docker.io/library/golang:1.26.5-bookworm
+#3 ...
+
+#4 [gateway internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.7s
+
+#5 [gateway internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 2.7s
+
+#3 [gateway internal] load metadata for docker.io/library/golang:1.26.5-bookworm
+#3 DONE 4.8s
+
+#6 [gm internal] load .dockerignore
+#6 transferring context: 267B done
+#6 DONE 0.0s
+
+#7 [gateway stage-2 1/5] FROM docker.io/library/debian:bookworm-slim@sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc
+#7 resolve docker.io/library/debian:bookworm-slim@sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc 0.0s done
+#7 DONE 0.1s
+
+#8 [gm console 1/6] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#8 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.0s done
+#8 sha256:c34f02d00fde0767e1607c15d336cb71414e607acb0b4e63680a37c007b76204 0B / 448B 0.2s
+#8 sha256:e727da478d47d626146e734dd426cad789beb1fe49c55a06a175621d30f31064 0B / 1.71MB 0.2s
+#8 sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114 0B / 51.10MB 0.2s
+#8 ...
+
+#9 [gm internal] load build context
+#9 transferring context: 20.45MB 1.0s done
+#9 DONE 1.1s
+
+#8 [gateway console 1/6] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#8 sha256:c34f02d00fde0767e1607c15d336cb71414e607acb0b4e63680a37c007b76204 448B / 448B 1.1s done
+#8 sha256:22a7c5e442cd30f0c37eb73f2f6d91be1c6b63bd1c4278641b042fe77b260f33 0B / 3.31kB 0.2s
+#8 sha256:22a7c5e442cd30f0c37eb73f2f6d91be1c6b63bd1c4278641b042fe77b260f33 3.31kB / 3.31kB 2.7s done
+#8 sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114 3.15MB / 51.10MB 4.5s
+#8 sha256:e727da478d47d626146e734dd426cad789beb1fe49c55a06a175621d30f31064 0B / 1.71MB 5.3s
+#8 sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114 6.29MB / 51.10MB 5.4s
+#8 sha256:e727da478d47d626146e734dd426cad789beb1fe49c55a06a175621d30f31064 1.05MB / 1.71MB 6.2s
+#8 sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114 9.44MB / 51.10MB 6.6s
+#8 sha256:e727da478d47d626146e734dd426cad789beb1fe49c55a06a175621d30f31064 1.71MB / 1.71MB 7.0s done
+#8 sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114 12.58MB / 51.10MB 8.0s
+#8 sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114 16.78MB / 51.10MB 8.4s
+#8 ...
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 resolve docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd 0.0s done
+#10 sha256:d657f0f223ddb0d7ef20bb2992d7c629802fc3ca624360f86302b7dfe9b6550f 127B / 127B 0.9s done
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 1.05MB / 92.55MB 5.0s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 0B / 64.41MB 2.9s
+#10 ...
+
+#7 [gateway stage-2 1/5] FROM docker.io/library/debian:bookworm-slim@sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc
+#7 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 4.19MB / 28.25MB 10.1s
+#7 ...
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 5.24MB / 92.55MB 10.1s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 0B / 64.41MB 8.0s
+#10 ...
+
+#8 [gateway console 1/6] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#8 sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114 51.10MB / 51.10MB 18.4s done
+#8 DONE 18.6s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 ...
+
+#7 [gateway stage-2 1/5] FROM docker.io/library/debian:bookworm-slim@sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc
+#7 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 11.53MB / 28.25MB 18.6s
+#7 ...
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 0B / 24.04MB 0.2s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 8.39MB / 92.55MB 15.2s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 1.05MB / 64.41MB 13.1s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 1.05MB / 24.04MB 5.3s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 3.15MB / 24.04MB 6.5s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 11.53MB / 92.55MB 20.3s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 3.15MB / 64.41MB 18.2s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 5.24MB / 24.04MB 7.1s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 7.34MB / 24.04MB 7.8s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 10.49MB / 24.04MB 8.1s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 12.58MB / 24.04MB 9.3s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 14.68MB / 24.04MB 10.1s
+#10 ...
+
+#7 [gateway stage-2 1/5] FROM docker.io/library/debian:bookworm-slim@sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc
+#7 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 24.12MB / 28.25MB 29.0s
+#7 ...
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 17.83MB / 24.04MB 10.8s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 14.68MB / 92.55MB 25.4s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 6.29MB / 64.41MB 23.3s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 20.97MB / 24.04MB 12.0s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 23.07MB / 24.04MB 12.9s
+#10 sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 24.04MB / 24.04MB 13.1s done
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 0B / 48.50MB 0.2s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 3.15MB / 48.50MB 2.0s
+#10 ...
+
+#7 [gm stage-2 1/5] FROM docker.io/library/debian:bookworm-slim@sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc
+#7 sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 28.25MB / 28.25MB 32.6s done
+#7 extracting sha256:dd051e1b8c92ff101fa3071ab97ea4924885942f15644e01c3dc095764e863e3 1.7s done
+#7 DONE 34.4s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 ...
+
+#8 [gateway console 1/6] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#8 extracting sha256:22a7c5e442cd30f0c37eb73f2f6d91be1c6b63bd1c4278641b042fe77b260f33 0.0s done
+#8 extracting sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114
+#8 extracting sha256:5030a48eb5b08bea228f0db8440fed216cf91b5ca4d999bc2a692c2eb0a60114 3.1s done
+#8 extracting sha256:e727da478d47d626146e734dd426cad789beb1fe49c55a06a175621d30f31064
+#8 extracting sha256:e727da478d47d626146e734dd426cad789beb1fe49c55a06a175621d30f31064 0.1s done
+#8 extracting sha256:c34f02d00fde0767e1607c15d336cb71414e607acb0b4e63680a37c007b76204 0.0s done
+#8 DONE 21.9s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 18.87MB / 92.55MB 32.7s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 9.44MB / 64.41MB 30.5s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 13.63MB / 48.50MB 5.9s
+#10 ...
+
+#11 [gm console 2/6] WORKDIR /src/gm-console
+#11 DONE 0.7s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 ...
+
+#12 [gateway console 3/6] COPY gm-console/package*.json ./
+#12 DONE 0.0s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 16.78MB / 48.50MB 7.5s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 19.92MB / 48.50MB 8.9s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 23.07MB / 48.50MB 9.5s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 26.21MB / 48.50MB 10.4s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 12.58MB / 64.41MB 35.6s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 22.02MB / 92.55MB 37.8s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 29.36MB / 48.50MB 11.6s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 32.51MB / 48.50MB 12.5s
+#10 ...
+
+#13 [gateway stage-2 2/5] RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/debian.sources && apt-get update && apt-get install -y --no-install-recommends ca-certificates curl &&     rm -rf /var/lib/apt/lists/*
+#13 0.552 Get:1 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm InRelease [151 kB]
+#13 0.797 Get:2 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates InRelease [55.4 kB]
+#13 0.870 Get:3 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security InRelease [34.8 kB]
+#13 1.016 Get:4 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 Packages [8790 kB]
+#13 1.481 Get:5 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates/main amd64 Packages [6924 B]
+#13 1.482 Get:6 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security/main amd64 Packages [370 kB]
+#13 2.938 Fetched 9409 kB in 2s (3785 kB/s)
+#13 2.938 Reading package lists...
+#13 4.070 Reading package lists...
+#13 5.076 Building dependency tree...
+#13 5.371 Reading state information...
+#13 5.754 The following additional packages will be installed:
+#13 5.756   libbrotli1 libcurl4 libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3
+#13 5.756   libkrb5support0 libldap-2.5-0 libnghttp2-14 libpsl5 librtmp1 libsasl2-2
+#13 5.757   libsasl2-modules-db libssh2-1 libssl3 openssl
+#13 5.760 Suggested packages:
+#13 5.760   krb5-doc krb5-user
+#13 5.760 Recommended packages:
+#13 5.760   krb5-locales libldap-common publicsuffix libsasl2-modules
+#13 5.915 The following NEW packages will be installed:
+#13 5.917   ca-certificates curl libbrotli1 libcurl4 libgssapi-krb5-2 libk5crypto3
+#13 5.917   libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.5-0 libnghttp2-14 libpsl5
+#13 5.918   librtmp1 libsasl2-2 libsasl2-modules-db libssh2-1 libssl3 openssl
+#13 6.063 0 upgraded, 18 newly installed, 0 to remove and 0 not upgraded.
+#13 6.063 Need to get 5846 kB of archives.
+#13 6.063 After this operation, 14.8 MB of additional disk space will be used.
+#13 6.063 Get:1 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security/main amd64 libssl3 amd64 3.0.22-1~deb12u2 [2040 kB]
+#13 6.507 Get:2 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security/main amd64 openssl amd64 3.0.22-1~deb12u2 [1442 kB]
+#13 6.535 Get:3 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security/main amd64 ca-certificates all 20250419~deb12u2 [161 kB]
+#13 6.557 Get:4 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security/main amd64 libbrotli1 amd64 1.0.9-2+deb12u1 [275 kB]
+#13 6.564 Get:5 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libkrb5support0 amd64 1.20.1-2+deb12u5 [33.2 kB]
+#13 6.567 Get:6 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libk5crypto3 amd64 1.20.1-2+deb12u5 [79.7 kB]
+#13 6.569 Get:7 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libkeyutils1 amd64 1.6.3-2 [8808 B]
+#13 6.570 Get:8 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libkrb5-3 amd64 1.20.1-2+deb12u5 [332 kB]
+#13 6.577 Get:9 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libgssapi-krb5-2 amd64 1.20.1-2+deb12u5 [135 kB]
+#13 6.581 Get:10 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg-10+deb12u1 [20.5 kB]
+#13 6.582 Get:11 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security/main amd64 libsasl2-2 amd64 2.1.28+dfsg-10+deb12u1 [59.9 kB]
+#13 6.614 Get:12 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libldap-2.5-0 amd64 2.5.13+dfsg-5 [183 kB]
+#13 6.617 Get:13 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libnghttp2-14 amd64 1.52.0-1+deb12u3 [72.4 kB]
+#13 6.624 Get:14 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libpsl5 amd64 0.21.2-1 [58.7 kB]
+#13 6.625 Get:15 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b2 [60.8 kB]
+#13 6.628 Get:16 http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security/main amd64 libssh2-1 amd64 1.10.0-3+deb12u1 [176 kB]
+#13 6.632 Get:17 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 libcurl4 amd64 7.88.1-10+deb12u15 [392 kB]
+#13 6.636 Get:18 http://mirrors.tuna.tsinghua.edu.cn/debian bookworm/main amd64 curl amd64 7.88.1-10+deb12u15 [316 kB]
+#13 6.905 debconf: delaying package configuration, since apt-utils is not installed
+#13 6.953 Fetched 5846 kB in 1s (7681 kB/s)
+#13 6.985 Selecting previously unselected package libssl3:amd64.
+#13 6.985 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6096 files and directories currently installed.)
+#13 6.997 Preparing to unpack .../00-libssl3_3.0.22-1~deb12u2_amd64.deb ...
+#13 7.001 Unpacking libssl3:amd64 (3.0.22-1~deb12u2) ...
+#13 7.207 Selecting previously unselected package openssl.
+#13 7.209 Preparing to unpack .../01-openssl_3.0.22-1~deb12u2_amd64.deb ...
+#13 7.212 Unpacking openssl (3.0.22-1~deb12u2) ...
+#13 7.372 Selecting previously unselected package ca-certificates.
+#13 7.375 Preparing to unpack .../02-ca-certificates_20250419~deb12u2_all.deb ...
+#13 7.379 Unpacking ca-certificates (20250419~deb12u2) ...
+#13 7.507 Selecting previously unselected package libbrotli1:amd64.
+#13 7.514 Preparing to unpack .../03-libbrotli1_1.0.9-2+deb12u1_amd64.deb ...
+#13 7.517 Unpacking libbrotli1:amd64 (1.0.9-2+deb12u1) ...
+#13 7.586 Selecting previously unselected package libkrb5support0:amd64.
+#13 7.588 Preparing to unpack .../04-libkrb5support0_1.20.1-2+deb12u5_amd64.deb ...
+#13 7.590 Unpacking libkrb5support0:amd64 (1.20.1-2+deb12u5) ...
+#13 7.633 Selecting previously unselected package libk5crypto3:amd64.
+#13 7.635 Preparing to unpack .../05-libk5crypto3_1.20.1-2+deb12u5_amd64.deb ...
+#13 7.638 Unpacking libk5crypto3:amd64 (1.20.1-2+deb12u5) ...
+#13 7.691 Selecting previously unselected package libkeyutils1:amd64.
+#13 7.694 Preparing to unpack .../06-libkeyutils1_1.6.3-2_amd64.deb ...
+#13 7.697 Unpacking libkeyutils1:amd64 (1.6.3-2) ...
+#13 7.745 Selecting previously unselected package libkrb5-3:amd64.
+#13 7.745 Preparing to unpack .../07-libkrb5-3_1.20.1-2+deb12u5_amd64.deb ...
+#13 7.747 Unpacking libkrb5-3:amd64 (1.20.1-2+deb12u5) ...
+#13 7.822 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#13 7.823 Preparing to unpack .../08-libgssapi-krb5-2_1.20.1-2+deb12u5_amd64.deb ...
+#13 7.825 Unpacking libgssapi-krb5-2:amd64 (1.20.1-2+deb12u5) ...
+#13 7.873 Selecting previously unselected package libsasl2-modules-db:amd64.
+#13 7.873 Preparing to unpack .../09-libsasl2-modules-db_2.1.28+dfsg-10+deb12u1_amd64.deb ...
+#13 7.879 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg-10+deb12u1) ...
+#13 7.923 Selecting previously unselected package libsasl2-2:amd64.
+#13 7.927 Preparing to unpack .../10-libsasl2-2_2.1.28+dfsg-10+deb12u1_amd64.deb ...
+#13 7.930 Unpacking libsasl2-2:amd64 (2.1.28+dfsg-10+deb12u1) ...
+#13 7.973 Selecting previously unselected package libldap-2.5-0:amd64.
+#13 7.977 Preparing to unpack .../11-libldap-2.5-0_2.5.13+dfsg-5_amd64.deb ...
+#13 7.979 Unpacking libldap-2.5-0:amd64 (2.5.13+dfsg-5) ...
+#13 8.046 Selecting previously unselected package libnghttp2-14:amd64.
+#13 8.046 Preparing to unpack .../12-libnghttp2-14_1.52.0-1+deb12u3_amd64.deb ...
+#13 8.048 Unpacking libnghttp2-14:amd64 (1.52.0-1+deb12u3) ...
+#13 8.095 Selecting previously unselected package libpsl5:amd64.
+#13 8.097 Preparing to unpack .../13-libpsl5_0.21.2-1_amd64.deb ...
+#13 8.099 Unpacking libpsl5:amd64 (0.21.2-1) ...
+#13 8.135 Selecting previously unselected package librtmp1:amd64.
+#13 8.136 Preparing to unpack .../14-librtmp1_2.4+20151223.gitfa8646d.1-2+b2_amd64.deb ...
+#13 8.139 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+#13 8.176 Selecting previously unselected package libssh2-1:amd64.
+#13 8.176 Preparing to unpack .../15-libssh2-1_1.10.0-3+deb12u1_amd64.deb ...
+#13 8.178 Unpacking libssh2-1:amd64 (1.10.0-3+deb12u1) ...
+#13 8.231 Selecting previously unselected package libcurl4:amd64.
+#13 8.233 Preparing to unpack .../16-libcurl4_7.88.1-10+deb12u15_amd64.deb ...
+#13 8.237 Unpacking libcurl4:amd64 (7.88.1-10+deb12u15) ...
+#13 8.297 Selecting previously unselected package curl.
+#13 8.298 Preparing to unpack .../17-curl_7.88.1-10+deb12u15_amd64.deb ...
+#13 8.302 Unpacking curl (7.88.1-10+deb12u15) ...
+#13 8.366 Setting up libkeyutils1:amd64 (1.6.3-2) ...
+#13 8.371 Setting up libpsl5:amd64 (0.21.2-1) ...
+#13 8.376 Setting up libbrotli1:amd64 (1.0.9-2+deb12u1) ...
+#13 8.382 Setting up libssl3:amd64 (3.0.22-1~deb12u2) ...
+#13 8.387 Setting up libnghttp2-14:amd64 (1.52.0-1+deb12u3) ...
+#13 8.392 Setting up libkrb5support0:amd64 (1.20.1-2+deb12u5) ...
+#13 8.396 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg-10+deb12u1) ...
+#13 8.401 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+#13 8.406 Setting up libk5crypto3:amd64 (1.20.1-2+deb12u5) ...
+#13 8.411 Setting up libsasl2-2:amd64 (2.1.28+dfsg-10+deb12u1) ...
+#13 8.417 Setting up libssh2-1:amd64 (1.10.0-3+deb12u1) ...
+#13 8.425 Setting up libkrb5-3:amd64 (1.20.1-2+deb12u5) ...
+#13 8.431 Setting up openssl (3.0.22-1~deb12u2) ...
+#13 8.441 Setting up libldap-2.5-0:amd64 (2.5.13+dfsg-5) ...
+#13 8.449 Setting up ca-certificates (20250419~deb12u2) ...
+#13 8.606 debconf: unable to initialize frontend: Dialog
+#13 8.606 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#13 8.606 debconf: falling back to frontend: Readline
+#13 8.606 debconf: unable to initialize frontend: Readline
+#13 8.606 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#13 8.606 debconf: falling back to frontend: Teletype
+#13 9.881 Updating certificates in /etc/ssl/certs...
+#13 ...
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 36.70MB / 48.50MB 13.7s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 39.85MB / 48.50MB 14.7s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 15.73MB / 64.41MB 40.7s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 44.04MB / 48.50MB 16.1s
+#10 ...
+
+#13 [gm stage-2 2/5] RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/debian.sources && apt-get update && apt-get install -y --no-install-recommends ca-certificates curl &&     rm -rf /var/lib/apt/lists/*
+#13 11.58 148 added, 0 removed; done.
+#13 11.64 Setting up libgssapi-krb5-2:amd64 (1.20.1-2+deb12u5) ...
+#13 11.65 Setting up libcurl4:amd64 (7.88.1-10+deb12u15) ...
+#13 11.65 Setting up curl (7.88.1-10+deb12u15) ...
+#13 11.66 Processing triggers for libc-bin (2.36-9+deb12u14) ...
+#13 11.69 Processing triggers for ca-certificates (20250419~deb12u2) ...
+#13 11.70 Updating certificates in /etc/ssl/certs...
+#13 13.11 0 added, 0 removed; done.
+#13 13.11 Running hooks in /etc/ca-certificates/update.d...
+#13 13.12 done.
+#13 DONE 13.6s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 25.17MB / 92.55MB 42.9s
+#10 ...
+
+#14 [gateway console 4/6] RUN npm ci --no-audit --fund=false
+#14 ...
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 47.19MB / 48.50MB 17.0s
+#10 sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 48.50MB / 48.50MB 17.0s done
+#10 extracting sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9
+#10 extracting sha256:3af9207d37990175f61d5ce9faa0c7373ffcd2d6da1b6ba0a9ca9d61f8f47cc9 3.3s done
+#10 extracting sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 18.87MB / 64.41MB 45.8s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 29.36MB / 92.55MB 48.0s
+#10 extracting sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 1.1s done
+#10 extracting sha256:6b02178232c403d8a6d5b460ad955daba177c38e178ed7dd417e5c4d748e948d 1.1s done
+#10 ...
+
+#14 [gateway console 4/6] RUN npm ci --no-audit --fund=false
+#14 16.41 
+#14 16.41 added 167 packages in 16s
+#14 16.41 npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+#14 16.41 npm warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+#14 16.41 npm warn install-scripts
+#14 16.41 npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+#14 16.42 npm notice
+#14 16.42 npm notice New major version of npm available! 11.19.1 -> 12.2.2
+#14 16.42 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+#14 16.42 npm notice To update run: npm install -g npm@12.2.2
+#14 16.42 npm notice
+#14 DONE 17.4s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 ...
+
+#15 [gateway console 5/6] COPY gm-console/ ./
+#15 DONE 0.2s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 23.07MB / 64.41MB 50.6s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 33.55MB / 92.55MB 53.1s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 26.21MB / 64.41MB 55.7s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 37.75MB / 92.55MB 58.2s
+#10 ...
+
+#16 [gm console 6/6] RUN npm run build
+#16 0.489 
+#16 0.489 > gm-console@0.0.0 build
+#16 0.489 > tsc --noEmit && vite build
+#16 0.489 
+#16 9.667 vite v6.4.2 building for production...
+#16 9.790 transforming...
+#16 ...
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 42.99MB / 92.55MB 61.8s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 30.41MB / 64.41MB 60.6s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 48.23MB / 92.55MB 65.1s
+#10 ...
+
+#16 [gm console 6/6] RUN npm run build
+#16 14.85 ✓ 1890 modules transformed.
+#16 15.33 rendering chunks...
+#16 15.50 computing gzip size...
+#16 15.52 dist/index.html                         0.67 kB │ gzip:   0.40 kB
+#16 15.52 dist/assets/index-CJvIsJqw.css         63.61 kB │ gzip:  13.26 kB
+#16 15.52 dist/assets/MarkdownBody-CCvxfFNU.js  165.33 kB │ gzip:  50.50 kB
+#16 15.52 dist/assets/index-CY3LSSDu.js         477.92 kB │ gzip: 144.21 kB
+#16 15.52 ✓ built in 5.80s
+#16 DONE 15.8s
+
+#10 [gateway build  1/11] FROM docker.io/library/golang:1.26.5-bookworm@sha256:53eeac89074db483fdf0ab3be1df32bf6e47562263d2d0d6baa7f26acb4957dd
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 33.55MB / 64.41MB 65.7s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 53.48MB / 92.55MB 69.3s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 58.72MB / 92.55MB 72.2s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 37.75MB / 64.41MB 70.4s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 63.96MB / 92.55MB 74.6s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 41.94MB / 64.41MB 75.2s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 69.21MB / 92.55MB 78.5s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 74.45MB / 92.55MB 81.2s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 46.14MB / 64.41MB 79.2s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 79.69MB / 92.55MB 84.9s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 50.33MB / 64.41MB 83.0s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 84.93MB / 92.55MB 88.2s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 54.53MB / 64.41MB 87.2s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 90.18MB / 92.55MB 91.1s
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 92.55MB / 92.55MB 92.7s done
+#10 sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 92.55MB / 92.55MB 92.7s done
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 59.77MB / 64.41MB 90.8s
+#10 sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 64.41MB / 64.41MB 94.1s done
+#10 extracting sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2
+#10 extracting sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 3.3s done
+#10 extracting sha256:c5a4625b533197abb25ea2a32be06c59c984d97c3c2dc9952e0b76f2e81ee0d2 3.3s done
+#10 extracting sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c
+#10 extracting sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 3.6s done
+#10 extracting sha256:cea3d467f844b8e6fffc2d7793807a1ec9e3a0582655418c1c17013372a3a910
+#10 extracting sha256:21105779649c02a72b1176bb0af13615e49d78163512797176c332a461d7063c 3.6s done
+#10 extracting sha256:cea3d467f844b8e6fffc2d7793807a1ec9e3a0582655418c1c17013372a3a910 7.3s done
+#10 extracting sha256:cea3d467f844b8e6fffc2d7793807a1ec9e3a0582655418c1c17013372a3a910 7.3s done
+#10 extracting sha256:d657f0f223ddb0d7ef20bb2992d7c629802fc3ca624360f86302b7dfe9b6550f 0.0s done
+#10 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0.0s done
+#10 DONE 115.5s
+
+#17 [gateway build  2/11] WORKDIR /src/gateway
+#17 DONE 0.6s
+
+#18 [gateway build  3/11] COPY gateway/go.mod gateway/go.sum ./
+#18 DONE 0.0s
+
+#19 [gateway build  4/11] RUN go mod download
+#19 DONE 1.9s
+
+#20 [gateway build  5/11] COPY gateway/ ./
+#20 DONE 0.4s
+
+#21 [gateway build  6/11] RUN go build -mod=readonly -trimpath -ldflags="-s -w" -o /out/PlayerGateway ./cmd/playergateway &&     go build -mod=readonly -trimpath -ldflags="-s -w" -o /out/GMService ./cmd/gmservice &&     go build -mod=readonly -trimpath -ldflags="-s -w" -o /out/GMIndex ./cmd/gmindex
+#21 DONE 37.2s
+
+#22 [gm build  7/11] WORKDIR /src/gm
+#22 DONE 0.1s
+
+#23 [gateway build  8/11] COPY gm/go.mod gm/go.sum ./
+#23 DONE 0.0s
+
+#24 [gm build  9/11] RUN go mod download
+#24 DONE 0.3s
+
+#25 [gm build 10/11] COPY gm/ ./
+#25 DONE 0.3s
+
+#26 [gateway build 11/11] RUN go build -mod=readonly -trimpath -ldflags="-s -w" -o /out/GMTool ./cmd/gmtool
+#26 DONE 9.9s
+
+#27 [gateway stage-2 3/5] COPY --from=build /out/ /opt/purplemagic/bin/
+#27 DONE 0.2s
+
+#28 [gateway stage-2 4/5] COPY --from=console /src/gm-console/dist/ /opt/purplemagic/web/
+#28 DONE 0.0s
+
+#29 [gm stage-2 5/5] WORKDIR /data
+#29 DONE 0.0s
+
+#30 [gateway] exporting to image
+#30 exporting layers
+#30 exporting layers 3.2s done
+#30 exporting manifest sha256:c3c389068671e29f18aaa69338ed24787f044e5a115e85d0d6593c5c6a4c67cb 0.0s done
+#30 exporting config sha256:750816f2cffed2dcb8b30a26b9625adc4fe2406271d9f14853a35f9bd69cb52d 0.0s done
+#30 exporting attestation manifest sha256:ee06e1c24fc4c851d4326ce4eacb59daa6a800921fb8791402af952e7e99acfc 0.0s done
+#30 exporting manifest list sha256:8b191f53e4de175894cb9ecdeae8a2a687daa75c9d43ee1c59e31d6f53052b57 0.0s done
+#30 naming to docker.io/library/purplemagic:local done
+#30 unpacking to docker.io/library/purplemagic:local
+#30 unpacking to docker.io/library/purplemagic:local 3.1s done
+#30 DONE 6.3s
+
+#31 [gm] exporting to image
+#31 exporting layers 3.2s done
+#31 exporting manifest sha256:f233c2dfa6d8e5f694b3689564155b28bf91fd7d78b49bc9a7de3be9e4fa63cf 0.0s done
+#31 exporting config sha256:8b9de77dc7d86db87bf36577907ac1b50cfd41bee81e26e8296a89e61517d935 0.0s done
+#31 exporting attestation manifest sha256:36c787b6e59689bda847ff26bf0a3f42101f9235fc38a15bf9a0632da4a33645 0.0s done
+#31 exporting manifest list sha256:61cdea4880faae381a3429495e583ceca6ce56ee3a8e438478465a002a00d5b1 0.0s done
+#31 naming to docker.io/library/purplemagic:local done
+#31 unpacking to docker.io/library/purplemagic:local 3.1s done
+#31 DONE 6.3s
+
+#32 [gateway] resolving provenance for metadata file
+#32 DONE 0.0s
+
+#33 [gm] resolving provenance for metadata file
+#33 DONE 0.0s
+ Image purplemagic:local Built 
+ Image purplemagic:local Built 
+
+== 8/10 PVF 索引与管理表（PVF 大，约 10-25 分钟） ==
+-- index-pvf
+ Container purplemagic-index-pvf-run-95b80c06b7cd Creating 
+ Container purplemagic-index-pvf-run-95b80c06b7cd Created 
+2026/11/14 13:04:02 INFO PVF disk index built; offline importer exiting
+-- index-items
+ Container purplemagic-index-items-run-31d16d58eb28 Creating 
+ Container purplemagic-index-items-run-31d16d58eb28 Created 
+2026/11/14 13:04:05 INFO dnf90 gm item index cache unusable error="open /data/indexes/items.json: no such file or directory"
+2026/11/14 13:16:33 INFO dnf90 gm item index ready items=154874 elapsed_ms=747934
+2026/11/14 13:29:06 INFO item detail index ready path=/data/indexes/item-details-v3-4bd851752f2d02c229d89f4959571e2d1d9ac41bdd7bdf876f38c36dc22526f5.bin items=154874 failed=0 bytes=215160232 reused=false
+-- index-quests
+ Container purplemagic-index-quests-run-84655d14f3af Creating 
+ Container purplemagic-index-quests-run-84655d14f3af Created 
+2026/11/14 13:29:12 INFO quest index ready path=/data/indexes/quests-v1-4bd851752f2d02c229d89f4959571e2d1d9ac41bdd7bdf876f38c36dc22526f5.bin quests=3091 reused=false
+-- index-professions
+ Container purplemagic-index-professions-run-3f82512362a7 Creating 
+ Container purplemagic-index-professions-run-3f82512362a7 Created 
+{"expertJob":{"path":"/data/indexes/expert-jobs-v1-4bd851752f2d02c229d89f4959571e2d1d9ac41bdd7bdf876f38c36dc22526f5.json","pvfChecksum":"4bd851752f2d02c229d89f4959571e2d1d9ac41bdd7bdf876f38c36dc22526f5","jobs":4,"quests":15,"bytes":1054,"reused":false},"profession":{"path":"/data/indexes/professions-v1-4bd851752f2d02c229d89f4959571e2d1d9ac41bdd7bdf876f38c36dc22526f5.bin","pvfChecksum":"4bd851752f2d02c229d89f4959571e2d1d9ac41bdd7bdf876f38c36dc22526f5","jobs":16,"skills":3107,"quests":784,"bytes":415748,"reused":false}}
+-- schema
+ Container purplemagic-schema-run-e06c5ee56e4e Creating 
+ Container purplemagic-schema-run-e06c5ee56e4e Created 
+2026/11/14 13:29:19 management schema ready
+
+== 9/10 启动 gateway / gm / edge ==
+ Image nginx:1.28-bookworm Pulling 
+ 9aec91fa40af Pulling fs layer 0B
+ 7f0da823c3c6 Pulling fs layer 0B
+ ae4ce04d0e1c Pulling fs layer 0B
+ 049fab013ee9 Pulling fs layer 0B
+ d9cafe4fb0f5 Pulling fs layer 0B
+ e92ea34e4fd2 Pulling fs layer 0B
+ 276a6b624459 Pulling fs layer 0B
+ 27183f607c19 Download complete 0B
+ 8b2ed7576bb7 Downloading 1.049MB
+ 8b2ed7576bb7 Downloading 1.049MB
+ 8b2ed7576bb7 Downloading 1.049MB
+ 8b2ed7576bb7 Downloading 2.097MB
+ 8b2ed7576bb7 Download complete 0B
+ 9aec91fa40af Download complete 0B
+ 7f0da823c3c6 Downloading 629B
+ 7f0da823c3c6 Download complete 0B
+ 276a6b624459 Download complete 0B
+ e92ea34e4fd2 Download complete 0B
+ d9cafe4fb0f5 Download complete 0B
+ 049fab013ee9 Downloading 1.049MB
+ 049fab013ee9 Downloading 1.049MB
+ 049fab013ee9 Downloading 1.049MB
+ 049fab013ee9 Downloading 1.049MB
+ 049fab013ee9 Downloading 2.097MB
+ 049fab013ee9 Downloading 2.097MB
+ 049fab013ee9 Downloading 2.097MB
+ 049fab013ee9 Downloading 2.097MB
+ 049fab013ee9 Downloading 2.097MB
+ 049fab013ee9 Downloading 2.097MB
+ 049fab013ee9 Downloading 2.097MB
+ 049fab013ee9 Downloading 3.146MB
+ 049fab013ee9 Downloading 3.146MB
+ 049fab013ee9 Downloading 3.146MB
+ 049fab013ee9 Downloading 4.194MB
+ 049fab013ee9 Downloading 4.194MB
+ 049fab013ee9 Downloading 4.194MB
+ 049fab013ee9 Downloading 4.194MB
+ 049fab013ee9 Downloading 4.194MB
+ 049fab013ee9 Downloading 4.194MB
+ 049fab013ee9 Downloading 4.194MB
+ 049fab013ee9 Downloading 6.291MB
+ 049fab013ee9 Downloading 6.291MB
+ 049fab013ee9 Downloading 7.34MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 7.34MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 7.34MB
+ ae4ce04d0e1c Downloading 1.049MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 8.389MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 9.437MB
+ 049fab013ee9 Downloading 9.437MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 9.437MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 9.437MB
+ ae4ce04d0e1c Downloading 1.049MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 10.49MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 10.49MB
+ 049fab013ee9 Downloading 10.49MB
+ ae4ce04d0e1c Downloading 1.049MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 10.49MB
+ 049fab013ee9 Downloading 12.58MB
+ ae4ce04d0e1c Downloading 1.049MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 14.68MB
+ 049fab013ee9 Downloading 17.83MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 20.97MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 20.97MB
+ ae4ce04d0e1c Downloading 1.049MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 20.97MB
+ 049fab013ee9 Downloading 20.97MB
+ ae4ce04d0e1c Downloading 1.049MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 20.97MB
+ 049fab013ee9 Downloading 20.97MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 20.97MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 22.02MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 22.02MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 22.02MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 23.07MB
+ ae4ce04d0e1c Downloading 1.049MB
+ ae4ce04d0e1c Downloading 1.049MB
+ 049fab013ee9 Downloading 23.07MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 23.07MB
+ 049fab013ee9 Downloading 23.07MB
+ ae4ce04d0e1c Downloading 2.097MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 23.07MB
+ 049fab013ee9 Downloading 23.07MB
+ ae4ce04d0e1c Downloading 2.097MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 24.12MB
+ 049fab013ee9 Downloading 24.12MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 24.12MB
+ ae4ce04d0e1c Downloading 2.097MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 24.12MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 24.12MB
+ 049fab013ee9 Downloading 24.12MB
+ ae4ce04d0e1c Downloading 2.097MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 25.17MB
+ 049fab013ee9 Downloading 25.17MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 25.17MB
+ ae4ce04d0e1c Downloading 2.097MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 25.17MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 25.17MB
+ 049fab013ee9 Downloading 27.26MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 27.26MB
+ ae4ce04d0e1c Downloading 2.097MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 27.26MB
+ ae4ce04d0e1c Downloading 2.097MB
+ 049fab013ee9 Downloading 27.26MB
+ 049fab013ee9 Downloading 27.26MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 27.26MB
+ ae4ce04d0e1c Downloading 3.146MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 27.26MB
+ 049fab013ee9 Downloading 27.26MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 28.31MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 28.31MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 28.31MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 28.31MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 28.31MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 29.36MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 30.41MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 32.51MB
+ ae4ce04d0e1c Downloading 3.146MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 32.51MB
+ 049fab013ee9 Downloading 32.51MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 32.51MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 32.51MB
+ ae4ce04d0e1c Downloading 3.146MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 32.51MB
+ 049fab013ee9 Downloading 33.55MB
+ ae4ce04d0e1c Downloading 3.146MB
+ 049fab013ee9 Downloading 33.55MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 33.55MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 35.65MB
+ ae4ce04d0e1c Downloading 4.194MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 36.7MB
+ 049fab013ee9 Downloading 36.7MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 36.7MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 36.7MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 36.7MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 36.7MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 36.7MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 36.7MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 37.75MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 37.75MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 37.75MB
+ ae4ce04d0e1c Downloading 4.194MB
+ 049fab013ee9 Downloading 38.8MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 38.8MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 38.8MB
+ ae4ce04d0e1c Downloading 5.243MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 38.8MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 39.85MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 39.85MB
+ 049fab013ee9 Downloading 39.85MB
+ ae4ce04d0e1c Downloading 5.243MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 40.89MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 41.94MB
+ 049fab013ee9 Downloading 41.94MB
+ ae4ce04d0e1c Downloading 5.243MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 41.94MB
+ 049fab013ee9 Downloading 41.94MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 41.94MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 41.94MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 41.94MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 41.94MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 42.99MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 42.99MB
+ ae4ce04d0e1c Downloading 5.243MB
+ 049fab013ee9 Downloading 42.99MB
+ ae4ce04d0e1c Downloading 6.291MB
+ 049fab013ee9 Downloading 44.15MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ 049fab013ee9 Download complete 0B
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 6.291MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 7.34MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 8.389MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 9.437MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 10.49MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 11.53MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 12.58MB
+ ae4ce04d0e1c Downloading 13.63MB
+ ae4ce04d0e1c Downloading 13.63MB
+ ae4ce04d0e1c Downloading 13.63MB
+ ae4ce04d0e1c Downloading 13.63MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 14.68MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 15.73MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 16.78MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 17.83MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 18.87MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 19.92MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 20.97MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 22.02MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.07MB
+ ae4ce04d0e1c Downloading 23.88MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 24.12MB
+ ae4ce04d0e1c Downloading 25.17MB
+ ae4ce04d0e1c Downloading 25.17MB
+ ae4ce04d0e1c Downloading 25.17MB
+ ae4ce04d0e1c Downloading 25.17MB
+ ae4ce04d0e1c Downloading 25.17MB
+ ae4ce04d0e1c Downloading 25.17MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 26.21MB
+ ae4ce04d0e1c Downloading 27.26MB
+ ae4ce04d0e1c Downloading 27.26MB
+ ae4ce04d0e1c Downloading 27.26MB
+ ae4ce04d0e1c Downloading 27.26MB
+ ae4ce04d0e1c Downloading 27.26MB
+ ae4ce04d0e1c Downloading 27.26MB
+ ae4ce04d0e1c Downloading 27.26MB
+ ae4ce04d0e1c Downloading 27.26MB
+ ae4ce04d0e1c Download complete 0B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 1B
+ ae4ce04d0e1c Extracting 2B
+ ae4ce04d0e1c Extracting 2B
+ ae4ce04d0e1c Extracting 2B
+ ae4ce04d0e1c Extracting 2B
+ 049fab013ee9 Extracting 1B
+ ae4ce04d0e1c Pull complete 0B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 1B
+ 049fab013ee9 Extracting 2B
+ 049fab013ee9 Extracting 2B
+ 049fab013ee9 Extracting 2B
+ 7f0da823c3c6 Pull complete 0B
+ 276a6b624459 Extracting 1B
+ e92ea34e4fd2 Pull complete 0B
+ d9cafe4fb0f5 Pull complete 0B
+ 049fab013ee9 Pull complete 0B
+ 9aec91fa40af Pull complete 0B
+ 276a6b624459 Pull complete 0B
+ Image nginx:1.28-bookworm Pulled 
+ Container purplemagic-gateway-1 Creating 
+ Container purplemagic-gateway-1 Created 
+ Container purplemagic-gm-1 Creating 
+ Container purplemagic-gm-1 Created 
+ Container purplemagic-edge-1 Creating 
+ Container purplemagic-edge-1 Created 
+ Container purplemagic-gateway-1 Starting 
+ Container purplemagic-gateway-1 Started 
+ Container purplemagic-gm-1 Starting 
+ Container purplemagic-gm-1 Started 
+ Container purplemagic-edge-1 Starting 
+ Container purplemagic-edge-1 Started 
+NAME                    IMAGE                 COMMAND                  SERVICE   CREATED         STATUS         PORTS
+purplemagic-edge-1      nginx:1.28-bookworm   "/docker-entrypoint.…"   edge      9 seconds ago   Up 8 seconds   
+purplemagic-gateway-1   purplemagic:local     "/opt/purplemagic/bi…"   gateway   9 seconds ago   Up 8 seconds   
+purplemagic-gm-1        purplemagic:local     "/opt/purplemagic/bi…"   gm        9 seconds ago   Up 8 seconds   
+
+== 9b/10 安装运维脚本 ==
+ops-backup.sh
+ops-logs.sh
+ops-start.sh
+ops-status.sh
+ops-stop.sh
+ops-verify.sh
+
+== 10/10 验收 ==
+本机 hosts 需要：192.168.200.132 players.purplemagic.test gm.purplemagic.test
+{"ok":true,"message":"dnf90 account api ready"}
+
+bootstrap=200
+频道端口数：120
+管理员 Token：vmBdhmfxIkGdqipcxOCpLwd4uR6ESJx3xP7L68AXCU-kDzxj
+
+== 5. 玩家网关 ==
+  [PASS] 8443 /api/status（证书固定链）
+  [PASS] bootstrap.json 200
+== 6. 频道握手（探测器） ==
+  [SKIP] 无 dotnet 或探测器
+
+结果：PASS=8 FAIL=2
+VERIFY_FAILED
+部署完成。登录器构建在 Windows 侧执行（见指南第 6 节）。
+常用：/srv/dnf/ops/ops-status.sh / ops-logs.sh / ops-backup.sh / ops-verify.sh

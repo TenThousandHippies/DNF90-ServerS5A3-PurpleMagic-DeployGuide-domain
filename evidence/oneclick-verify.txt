@@ -1,0 +1,22 @@
+/srv/dnf/ops/ops-verify.sh: line 1: ﻿#!/bin/bash: No such file or directory
+== 1. 容器 ==
+  [PASS] servers5a3-local-db-1 healthy
+  [PASS] servers5a3-local-server-1 healthy
+  [PASS] purplemagic-gateway-1 running
+  [PASS] purplemagic-gm-1 running
+  [PASS] purplemagic-edge-1 running
+== 2. 账号 API ==
+  [PASS] 17002 /api/status
+== 3. 频道端口 ==
+  [PASS] 120 个频道端口监听（192.168.200.132）
+  [PASS] 7001 引导端口（192.168.200.132）
+== 4. 活动 2365 ==
+  [PASS] 2365 enabled=False effective=False pendingRestart=False
+== 5. 玩家网关 ==
+  [PASS] 8443 /api/status（证书固定链）
+  [PASS] bootstrap.json 200
+== 6. 频道握手（探测器） ==
+  [SKIP] 无 dotnet 或探测器
+
+结果：PASS=10 FAIL=0
+VERIFY_OK

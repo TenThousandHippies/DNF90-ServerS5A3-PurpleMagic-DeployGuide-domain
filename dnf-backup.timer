@@ -1,0 +1,11 @@
+[Unit]
+Description=DNF90 daily backup timer (04:10 Asia/Shanghai)
+
+[Timer]
+OnCalendar=*-*-* 04:10:00
+Persistent=true
+RandomizedDelaySec=300
+Unit=dnf-backup.service
+
+[Install]
+WantedBy=timers.target

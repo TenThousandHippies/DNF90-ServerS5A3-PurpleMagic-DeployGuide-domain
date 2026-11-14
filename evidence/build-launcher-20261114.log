@@ -1,0 +1,58 @@
+== 1/3 flutter pub get ==
+Resolving dependencies in `launcher\Flutter`...
+Downloading packages...
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+  vm_service 15.3.0 (15.4.0 available)
+Got dependencies in `launcher\Flutter`!
+5 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+== 2/3 BUILD_FLUTTER ==
+fatal: not a git repository (or any of the parent directories): .git
+  正在确定要还原的项目…
+  已还原 D:\dnf-work\build\PurpleMagic\launcher\Core\Launcher.Core.csproj (用时 145 毫秒)。
+  2 个项目(共 3 个)是最新的，无法还原。
+  Launcher.Core -> D:\dnf-work\build\PurpleMagic\launcher\Core\bin\Release\net8.0\Launcher.Core.dll
+  Launcher.Engine -> D:\dnf-work\build\PurpleMagic\launcher\Engine\bin\Release\net8.0\Launcher.Engine.dll
+  Launcher.Host -> D:\dnf-work\build\PurpleMagic\launcher\Host\bin\Release\net8.0\win-x64\DNF90.Core.dll
+  Generating native code
+  Launcher.Host -> D:\dnf-work\build\PurpleMagic\runtime\flutter-build\standard\core\
+Resolving dependencies...
+Downloading packages...
+Got dependencies!
+Building Windows application...                                    13.0s
+√ Built build\windows\x64\runner\Release\DNF90.exe
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.19045.
+-- Configuring done (0.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: D:/dnf-work/build/PurpleMagic/runtime/flutter-build/bootstrap
+适用于 .NET Framework MSBuild 版本 17.14.60+43b635718
+
+  1>Checking Build System
+  Building Custom Rule D:/dnf-work/build/PurpleMagic/launcher/Bootstrap/CMakeLists.txt
+  DNF90Launcher.vcxproj -> D:\dnf-work\build\PurpleMagic\runtime\flutter-build\bootstrap\Release\DNF90Launcher.exe
+  Building Custom Rule D:/dnf-work/build/PurpleMagic/launcher/Bootstrap/CMakeLists.txt
+{"version": "1.0.11", "directory": "D:\\dnf-work\\build\\PurpleMagic\\dist\\PurpleMagic-test", "complete_bytes": 43949437, "zip_bytes": 19005853, "zip_sha256": "70f376b1dfd922446700c71d1b221d47904bf01d29bf9762ceb37a683fbff01e", "update_bytes": 18767030, "buildFlavor": "standard"}
+== 3/3 BUILD_PORTABLE ==
+  正在确定要还原的项目…
+  所有项目均是最新的，无法还原。
+  Launcher.Portable -> D:\dnf-work\build\PurpleMagic\launcher\Portable\bin\Release\net8.0\win-x64\PurpleMagic.dll
+  Generating native code
+  Launcher.Portable -> D:\dnf-work\build\PurpleMagic\runtime\flutter-build\portable\
+{
+  "version": "1.0.11",
+  "file": "D:\\dnf-work\\build\\PurpleMagic\\dist\\PurpleMagic-test.exe",
+  "bytes": 23178240,
+  "sha256": "b496f9c1baace8858f796bebe28d652034c74bdb1ffaa73f433cf150cb2e686a",
+  "payload_sha256": "77c881613e8f1184b6809bab7ccad6f2951a7034e926b7fe7fd4e8e2477a0436",
+  "payload_bytes": 19005037,
+  "expanded_bytes": 43949437,
+  "files": 24,
+  "source_zip_sha256": "70f376b1dfd922446700c71d1b221d47904bf01d29bf9762ceb37a683fbff01e",
+  "gui_started": false
+}
+
+DONE: dist\PurpleMagic-test\, dist\PurpleMagic-test.zip, dist\PurpleMagic-test-app-update.zip, dist\PurpleMagic-test.exe
+Copy dist\PurpleMagic-test.exe as PurpleMagic.exe and ship it with the hosts helper.
