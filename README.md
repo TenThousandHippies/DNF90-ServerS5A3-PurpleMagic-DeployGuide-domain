@@ -8,8 +8,8 @@
 | Python | 3.10+ | prepare/索引脚本 |
 | Flutter / .NET / VS Build Tools | 3.47.9 / 8.0.427 / 17.14 | Windows 登录器 |
 
-<img width="925" height="584" alt="image" src="https://github.com/user-attachments/assets/e23557ef-099a-41da-b0a9-b3ad3befb77f" />
 ## 手动部署四段
+
 ```bash
 # 1) 服务端镜像
 cd /srv/dnf/ServerS5A3
@@ -37,7 +37,6 @@ docker compose ... up -d gateway gm edge
 build-launcher.bat D:\SDKs\flutter D:\SDKs\dotnet8\dotnet.exe dist\PurpleMagic-1.0.12
 ```
 
-<img width="942" height="204" alt="image" src="https://github.com/user-attachments/assets/9ba27a06-94ba-46e9-9601-66cc29a27448" />
 ##  一键部署
 ```bash
 bash deploy-oneclick.sh --host-ip 192.168.200.130 \
